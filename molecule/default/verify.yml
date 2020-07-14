@@ -1,0 +1,21 @@
+---
+# redis molecule/default/verify.yml
+#
+# SPDX-FileCopyrightText: © 2020 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+- name: Verify
+  hosts: all
+  tasks:
+
+  - name: Test that Redis is running
+    command:
+      cmd: "redis-cli ping"
+    register: redis_ping
+    tags:
+      - skip_ansible_lint  # info collection
+
+  - name: Check for valid ping output
+    assert:
+      that:
+        - "redis_ping.stdout == 'PONG'"

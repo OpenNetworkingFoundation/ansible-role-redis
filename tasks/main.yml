@@ -1,0 +1,19 @@
+---
+# redis tasks/main.yml
+#
+# SPDX-FileCopyrightText: © 2020 Open Networking Foundation <support@opennetworking.org>
+# SPDX-License-Identifier: Apache-2.0
+
+- name: include OS-specific vars
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: include OS-specific tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Set Redis listening addresses
+  lineinfile:
+    path: "/etc/redis/redis.conf"
+    line: "bind {{ redis_bind | join(' ') }}"
+    regex: "^bind .*"
+  notify:
+    - "restart-redis"

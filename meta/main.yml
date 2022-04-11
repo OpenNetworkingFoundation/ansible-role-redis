@@ -5,6 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 galaxy_info:
+  role_name: redis
   author: Open Networking Foundation
   description: Redis in-memory key-value store
   company: Open Networking Foundation
